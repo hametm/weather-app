@@ -66,10 +66,16 @@ main {
     gap: .5rem;
 }
 
-h1 {
+#name {
     font-size: 3rem;
+    font-weight: normal;
 }
 
 #temp {
     font-size: 5rem;
+    font-weight: normal;
+}
+
+p, h1, h2 {
+    margin: 0;
 }

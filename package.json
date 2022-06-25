@@ -25,6 +25,8 @@
     "webpack-cli": "^4.10.0"
   },
   "dependencies": {
-    "i18n-iso-countries": "^7.5.0"
+    "html-entities": "^2.3.3",
+    "i18n-iso-countries": "^7.5.0",
+    "special-entities": "^1.0.2"
   }
 }

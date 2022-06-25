@@ -1,6 +1,7 @@
 import './style.css';
 var countries = require("i18n-iso-countries");
 countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
+import {decode} from 'html-entities';
 
 const input = document.querySelector("input");
 const submit = document.getElementById("submit");
@@ -31,23 +32,15 @@ submit.onclick = () => {
 async function getWeather() {
     const response = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${location}&APPID=0a10f192bc6dd2fa1798de607d95da55`, {mode: "cors"});
     const data = await response.json();
-
-    const feelsLikeLabel = document.getElementById("feelsLikeLabel");
-    const windLabel = document.getElementById("windLabel");
-    const highLabel = document.getElementById("highLabel");
-    const lowLabel = document.getElementById("lowLabel");
+    const degreeSymbol = decode("&deg;");
 
     name.textContent = data.name + ", " + (countries.getName(data.sys.country, "en"));
-    temp.textContent = convertToFahrenheit(data.main.temp);
-    feelsLikeLabel.textContent = "Feels like";
-    feelsLike.textContent = convertToFahrenheit(data.main.feels_like); 
+    temp.textContent = convertToFahrenheit(data.main.temp) + degreeSymbol;
+    feelsLike.textContent = `Feels like: ${convertToFahrenheit(data.main.feels_like)}${degreeSymbol}`; 
     main.textContent = data.weather[0].main;
-    windLabel.textContent = "Wind";
-    wind.textContent = Math.round(data.wind.speed) + "mph";
-    highLabel.textContent = "High";
-    high.textContent = convertToFahrenheit(data.main.temp_max);
-    lowLabel.textContent = "Low";
-    low.textContent = convertToFahrenheit(data.main.temp_min);
+    wind.textContent = `Wind: ${Math.round(data.wind.speed) + "mph"}`;
+    high.textContent = `High: ${convertToFahrenheit(data.main.temp_max)}${degreeSymbol}`;
+    low.textContent = `Low: ${convertToFahrenheit(data.main.temp_min)}${degreeSymbol}`;
 
 }
 
