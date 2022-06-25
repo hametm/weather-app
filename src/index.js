@@ -12,6 +12,9 @@ const main = document.getElementById("main");
 const wind = document.getElementById("wind");
 const high = document.getElementById("temp_max");
 const low = document.getElementById("temp_min");
+const container = document.getElementById("weather");
+const page = document.querySelector("main");
+const errorMessage = document.createElement("h1");
 
 let location = "tokyo";
 
@@ -25,25 +28,41 @@ input.addEventListener("keypress", (event) => {
 })
 
 submit.onclick = () => {
+    container.classList.remove("hidden");
+    errorMessage.remove();
     location = input.value;
     getWeather();
 }
 
 async function getWeather() {
-    const response = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${location}&APPID=0a10f192bc6dd2fa1798de607d95da55`, {mode: "cors"});
-    const data = await response.json();
-    const degreeSymbol = decode("&deg;");
-
-    name.textContent = data.name + ", " + (countries.getName(data.sys.country, "en"));
-    temp.textContent = convertToFahrenheit(data.main.temp) + degreeSymbol;
-    feelsLike.textContent = `Feels like: ${convertToFahrenheit(data.main.feels_like)}${degreeSymbol}`; 
-    main.textContent = data.weather[0].main;
-    wind.textContent = `Wind: ${Math.round(data.wind.speed) + "mph"}`;
-    high.textContent = `High: ${convertToFahrenheit(data.main.temp_max)}${degreeSymbol}`;
-    low.textContent = `Low: ${convertToFahrenheit(data.main.temp_min)}${degreeSymbol}`;
-
+    try {
+        const response = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${location}&APPID=0a10f192bc6dd2fa1798de607d95da55`, {mode: "cors"});
+        const data = await response.json();
+        const degreeSymbol = decode("&deg;");
+    
+        name.textContent = data.name + convertCountryName(data.sys.country);
+        temp.textContent = convertToFahrenheit(data.main.temp) + degreeSymbol;
+        // feelsLike.textContent = `Feels like ${convertToFahrenheit(data.main.feels_like)}${degreeSymbol}`; 
+        main.textContent = data.weather[0].main;
+        wind.textContent = `Wind: ${Math.round(data.wind.speed) + "mph"}`;
+        high.textContent = `High: ${convertToFahrenheit(data.main.temp_max)}${degreeSymbol}`;
+        low.textContent = `Low: ${convertToFahrenheit(data.main.temp_min)}${degreeSymbol}`;
+    
+    } catch(error) {
+        container.classList.add("hidden");
+        errorMessage.textContent = "City not found :(";
+        errorMessage.classList.add("errorMessage");
+        page.appendChild(errorMessage);
+    }
+   
 }
 
 function convertToFahrenheit(temp) {
     return Math.round((((temp - 273)) * (9/5)) + 32);
+}
+
+function convertCountryName(name) {
+    if (name === "US") return "USA";
+    if (name === "GB") return ", U.K.";
+    return`, ${(countries.getName(name, "en"))}`;
 }

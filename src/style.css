@@ -9,7 +9,7 @@ body {
 nav {
     display: grid;
     place-items: center;
-    background-color: navy;
+    background-color: rgb(4, 4, 185);
     color: white;
 }
 
@@ -32,10 +32,12 @@ button {
     font-family: Arial, Helvetica, sans-serif;
     padding: 5px;
     font-size: 1rem;
+    background-color: whitesmoke;
 }
 
 button:hover {
-    background-color: rgb(157, 157, 157);
+    background-color: rgb(217, 217, 217);
+    cursor: pointer;
 }
 
 button:active {
@@ -44,38 +46,57 @@ button:active {
 
 #highLow {
     display: flex;
-    gap: 1rem;
+    gap: .5rem;
 }
 
 main {
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     background-image: url(images/blue-sky.jpg);
     background-size: cover;
 }
 
 #weather {
-    justify-self: center;
-    align-self: flex-end;
-    margin-bottom: 20%;
+    grid-row: 1;
+    grid-column: 1;
+    margin-top: 15%;
+    margin-left: 10%;
     color: white;
 }
 
-.container {
-    display: flex;
-    gap: .5rem;
-}
-
 #name {
-    font-size: 3rem;
+    font-size: 3.5rem;
     font-weight: normal;
+    margin: 0;
 }
 
 #temp {
     font-size: 5rem;
     font-weight: normal;
+    margin: 0;
 }
 
-p, h1, h2 {
+p {
     margin: 0;
+    font-size: 1.5rem;
+}
+
+#weather #bottom {
+    display: flex;
+    flex-direction: column;
+    gap: .25rem;
+}
+
+.hidden {
+    display: none;
+}
+
+.errorMessage {
+    color: white;
+    position: fixed;
+    top: 20vh;
+    left: 50vw;
+    transform: translate(-50%, -50%);
+    font-weight: normal;
 }
