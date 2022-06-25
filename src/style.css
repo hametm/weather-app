@@ -6,24 +6,6 @@ body {
     grid-template-rows: 1fr 9fr;
 }
 
-main {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    background-image: url(images/sky.jpg);
-    background-size: cover;
-}
-
-#weather {
-    justify-self: center;
-    align-self: flex-end;
-    margin-bottom: 20%;
-}
-
-.container {
-    display: flex;
-    gap: .5rem;
-}
-
 nav {
     display: grid;
     place-items: center;
@@ -42,15 +24,52 @@ input#searchBar {
     border: none;
     background-color: rgb(233, 238, 238);
     padding: 5px;
+    font-size: 1rem;
 }
 
 button {
     border-radius: 8px;
     font-family: Arial, Helvetica, sans-serif;
     padding: 5px;
+    font-size: 1rem;
+}
+
+button:hover {
+    background-color: rgb(157, 157, 157);
+}
+
+button:active {
+    transform: translate(1px, 1px);
 }
 
 #highLow {
     display: flex;
     gap: 1rem;
+}
+
+main {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    background-image: url(images/blue-sky.jpg);
+    background-size: cover;
+}
+
+#weather {
+    justify-self: center;
+    align-self: flex-end;
+    margin-bottom: 20%;
+    color: white;
+}
+
+.container {
+    display: flex;
+    gap: .5rem;
+}
+
+h1 {
+    font-size: 3rem;
+}
+
+#temp {
+    font-size: 5rem;
 }

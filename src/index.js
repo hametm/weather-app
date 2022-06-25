@@ -1,4 +1,6 @@
 import './style.css';
+var countries = require("i18n-iso-countries");
+countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
 
 const input = document.querySelector("input");
 const submit = document.getElementById("submit");
@@ -15,6 +17,12 @@ let location = "tokyo";
 // Just for now
 getWeather();
 
+input.addEventListener("keypress", (event) => {
+    if (event.key === "Enter") {
+        submit.click();
+    }
+})
+
 submit.onclick = () => {
     location = input.value;
     getWeather();
@@ -29,20 +37,20 @@ async function getWeather() {
     const highLabel = document.getElementById("highLabel");
     const lowLabel = document.getElementById("lowLabel");
 
-    name.textContent = data.name;
-    temp.textContent = convertTemp(data.main.temp);
+    name.textContent = data.name + ", " + (countries.getName(data.sys.country, "en"));
+    temp.textContent = convertToFahrenheit(data.main.temp);
     feelsLikeLabel.textContent = "Feels like";
-    feelsLike.textContent = convertTemp(data.main.feels_like); 
+    feelsLike.textContent = convertToFahrenheit(data.main.feels_like); 
     main.textContent = data.weather[0].main;
     windLabel.textContent = "Wind";
-    wind.textContent = data.wind.speed;
+    wind.textContent = Math.round(data.wind.speed) + "mph";
     highLabel.textContent = "High";
-    high.textContent = convertTemp(data.main.temp_max);
+    high.textContent = convertToFahrenheit(data.main.temp_max);
     lowLabel.textContent = "Low";
-    low.textContent = convertTemp(data.main.temp_min);
+    low.textContent = convertToFahrenheit(data.main.temp_min);
 
 }
 
-function convertTemp(temp) {
-    return Math.round(temp - 273);
+function convertToFahrenheit(temp) {
+    return Math.round((((temp - 273)) * (9/5)) + 32);
 }
