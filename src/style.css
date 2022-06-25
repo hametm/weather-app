@@ -1,22 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Passion+One&display=swap');
+
 body {
     margin: 0;
     min-height: 100vh;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     display: grid;
     grid-template-rows: 1fr 9fr;
 }
 
 nav {
     display: grid;
-    place-items: center;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-items: center;
+    align-items: center;
     background-color: rgb(4, 4, 185);
     color: white;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+#logo {
+    justify-self: flex-start;
+    display: flex;
+    align-items: center;
+    gap: .3rem;
+    font-size: 1.25rem;
+    font-family: 'Passion One', cursive;
+}
+
+#logo img {
+    height: 40px;
 }
 
 #search {
     display: flex;
     align-items: center;
     gap: .5rem;
+}
+
+#searchBtn {
+    height: 32px;
+}
+
+#searchBtn:hover {
+    cursor: pointer
 }
 
 input#searchBar {
@@ -27,21 +54,23 @@ input#searchBar {
     font-size: 1rem;
 }
 
-button {
-    border-radius: 8px;
-    font-family: Arial, Helvetica, sans-serif;
-    padding: 5px;
-    font-size: 1rem;
-    background-color: whitesmoke;
+#tempConvert {
+    display: flex;
+    justify-self: flex-end;
+    justify-content: space-evenly;
 }
 
-button:hover {
-    background-color: rgb(217, 217, 217);
+.tempChanger:hover {
     cursor: pointer;
+    color: rgb(0, 204, 255);
 }
 
-button:active {
+.tempChanger:active {
     transform: translate(1px, 1px);
+}
+
+.currentTemp {
+    color: rgb(0, 204, 255);
 }
 
 #highLow {
@@ -99,4 +128,5 @@ p {
     left: 50vw;
     transform: translate(-50%, -50%);
     font-weight: normal;
+    font-size: 3rem;
 }
