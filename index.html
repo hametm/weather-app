@@ -8,15 +8,25 @@
     <script src="bundle.js" defer></script>
 </head>
 <body>
-    <label for="search">Location</label>
-    <input type="search" id="search">
-    <button id="submit">Submit</button>
-    <ul>
-        <li><h1 id="name"></h1></li>
-        <li><p id="temp"></p></li>
-        <li><p>Feels like</p><p id="feels_like"></p></li>
-        <li><p id="main"></p></li>
-        <li><p>Wind</p><p id="wind"></p></li>
-    </ul>
+    <nav>
+        <div id="search">
+            <input type="search" id="searchBar" placeholder="City">
+            <button id="submit">Go</button>
+        </div>
+    </nav>
+    <main>
+        <div id="weather">
+            <h1 id="name"></h1>
+            <h2 id="temp"></h2>
+            <div class="container"><p id="feelsLikeLabel"></p><p id="feels_like"></p></div>
+            <p id="main"></p>
+            <div class="container"><p id="windLabel"></p><p id="wind"></p></div>
+            <div id="highLow">
+                <div class="container"><p id="highLabel"></p><p id="temp_max"></p></div>
+                <div class="container"><p id="lowLabel"></p><p id="temp_min"></p></div>
+            </div>
+        </div>
+    </main>
+
 </body>
 </html>
