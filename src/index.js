@@ -71,7 +71,7 @@ function changeTemp(dTemp, dHigh, dLow) {
         low.textContent = `Low: ${convertToFahrenheit(dLow)}${degreeSymbol}`;
     }
 
-    convertToC.onclick = (dTemp, dHigh, dLow) => {
+    convertToC.onclick = () => {
         temp.textContent = convertToCelsius(dTemp) + degreeSymbol;
         high.textContent = `High: ${convertToCelsius(dHigh)}${degreeSymbol}`;
         low.textContent = `Low: ${convertToCelsius(dLow)}${degreeSymbol}`;
