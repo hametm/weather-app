@@ -9,9 +9,18 @@
 </head>
 <body>
     <nav>
+        <div id="logo">
+            <img src="../src/images/sun.png" alt="sun">
+            <h1>What's the Weather?</h1>
+        </div>
         <div id="search">
-            <input type="search" id="searchBar" placeholder="City">
-            <button id="submit">Go</button>
+            <input type="search" id="searchBar" placeholder="City" spellcheck="false">
+            <img id="searchBtn" src="../src/images/search-button.png" alt="search icon">
+        </div>
+        <div id="tempConvert">
+            <p class="tempChanger" id="fahrenheit">F&deg;</p>
+            <p>&VerticalSeparator;&nbsp;</p>
+            <p class="tempChanger" id="celsius">C&deg;</p>
         </div>
     </nav>
     <main>
