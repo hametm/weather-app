@@ -53,8 +53,7 @@ async function getWeather() {
         wind.textContent = `Wind: ${Math.round(data.wind.speed) + " mph"}`;
         high.textContent = `High: ${convertToFahrenheit(data.main.temp_max)}${degreeSymbol}`;
         low.textContent = `Low: ${convertToFahrenheit(data.main.temp_min)}${degreeSymbol}`;
-        changeTemp(temp, data.main.temp);
-        
+        changeTemp(data.main.temp, data.main.temp_max, data.main.temp_min);
     
     } catch(error) {
         container.classList.add("hidden");
@@ -65,15 +64,17 @@ async function getWeather() {
    
 }
 
-function changeTemp(element, temp) {
-    convertToC.onclick = () => {
-        let newTemp = convertToCelsius(temp);
-        element.textContent = newTemp + degreeSymbol;
+function changeTemp(dTemp, dHigh, dLow) {
+    convertToF.onclick = () => {
+        temp.textContent = convertToFahrenheit(dTemp) + degreeSymbol;
+        high.textContent = `High: ${convertToFahrenheit(dHigh)}${degreeSymbol}`;
+        low.textContent = `Low: ${convertToFahrenheit(dLow)}${degreeSymbol}`;
     }
 
-    convertToF.onclick = () => {
-        let newTemp = convertToFahrenheit(temp);
-        element.textContent = newTemp + degreeSymbol;
+    convertToC.onclick = (dTemp, dHigh, dLow) => {
+        temp.textContent = convertToCelsius(dTemp) + degreeSymbol;
+        high.textContent = `High: ${convertToCelsius(dHigh)}${degreeSymbol}`;
+        low.textContent = `Low: ${convertToCelsius(dLow)}${degreeSymbol}`;
     }
 }
 
