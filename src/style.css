@@ -84,6 +84,15 @@ input#searchBar {
     gap: .5rem;
 }
 
+@keyframes fadein {
+    from {
+        opacity: 0;
+    } to {
+        opacity: 1;
+    }
+
+}
+
 main {
     display: grid;
     grid-template-rows: 1fr 1fr;
@@ -98,6 +107,7 @@ main {
     margin-top: 15%;
     margin-left: 10%;
     color: white;
+    animation: .5s linear fadein;
 }
 
 #name {
