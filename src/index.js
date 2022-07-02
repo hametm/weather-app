@@ -1,16 +1,13 @@
 import './style.css';
-var countries = require("i18n-iso-countries");
-countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
 import { decode } from 'html-entities';
+import { convertToFahrenheit, convertToCelsius, convertCountryName } from "./conversions.js";
 import searchImage from "./images/search-button.png";
 import sunImage from "./images/sun.png";
-
 
 const input = document.querySelector("input");
 const search = document.getElementById("searchBtn");
 const name = document.getElementById("name");
 const temp = document.getElementById("temp");
-const feelsLike = document.getElementById("feels_like");
 const main = document.getElementById("main");
 const wind = document.getElementById("wind");
 const high = document.getElementById("temp_max");
@@ -25,12 +22,7 @@ const searchBtn = document.getElementById("searchBtn");
 const sun = document.getElementById("sun");
 
 let location = "tokyo";
-
 getWeather();
-
-searchBtn.src = searchImage;
-sun.src = sunImage;
-
 
 async function getWeather() {
     try {
@@ -43,7 +35,8 @@ async function getWeather() {
         wind.textContent = `Wind: ${Math.round(data.wind.speed) + " mph"}`;
         high.textContent = `High: ${convertToFahrenheit(data.main.temp_max)}${degreeSymbol}`;
         low.textContent = `Low: ${convertToFahrenheit(data.main.temp_min)}${degreeSymbol}`;
-        changeTemp(data.main.temp, data.main.temp_max, data.main.temp_min);
+        addImageSrc();
+        addEventListeners(data.main.temp, data.main.temp_max, data.main.temp_min);
     
     } catch(error) {
         container.classList.add("hidden");
@@ -51,53 +44,43 @@ async function getWeather() {
         errorMessage.classList.add("errorMessage");
         page.appendChild(errorMessage);
     }
-   
 }
 
-function changeTemp(dTemp, dHigh, dLow) {
+function addImageSrc() {
+    searchBtn.src = searchImage;
+    sun.src = sunImage;
+}
+
+function addEventListeners(currentTemp, currentHigh, currentLow) {
     convertToF.onclick = () => {
-        temp.textContent = convertToFahrenheit(dTemp) + degreeSymbol;
-        high.textContent = `High: ${convertToFahrenheit(dHigh)}${degreeSymbol}`;
-        low.textContent = `Low: ${convertToFahrenheit(dLow)}${degreeSymbol}`;
+        temp.textContent = convertToFahrenheit(currentTemp) + degreeSymbol;
+        high.textContent = `High: ${convertToFahrenheit(currentHigh)}${degreeSymbol}`;
+        low.textContent = `Low: ${convertToFahrenheit(currentLow)}${degreeSymbol}`;
     }
 
     convertToC.onclick = () => {
-        temp.textContent = convertToCelsius(dTemp) + degreeSymbol;
-        high.textContent = `High: ${convertToCelsius(dHigh)}${degreeSymbol}`;
-        low.textContent = `Low: ${convertToCelsius(dLow)}${degreeSymbol}`;
+        temp.textContent = convertToCelsius(currentTemp) + degreeSymbol;
+        high.textContent = `High: ${convertToCelsius(currentHigh)}${degreeSymbol}`;
+        low.textContent = `Low: ${convertToCelsius(currentLow)}${degreeSymbol}`;
     }
-}
 
-function convertToFahrenheit(temp) {
-    convertToC.classList.remove("currentTemp");
-    convertToF.classList.add("currentTemp");
-    return Math.round((((temp - 273)) * (9/5)) + 32);
-}
+    input.addEventListener("keypress", (event) => {
+        if (event.key === "Enter") {
+            search.click();
+        }
+    })
 
-function convertToCelsius(temp) {
-    convertToF.classList.remove("currentTemp");
-    convertToC.classList.add("currentTemp");
-    return Math.round(temp - 273);
-}
-
-function convertCountryName(name) {
-    if (name === "US") return ", USA";
-    if (name === "GB") return ", U.K.";
-    return`, ${(countries.getName(name, "en"))}`;
+    search.onclick = () => {
+        container.classList.remove("hidden");
+        errorMessage.remove();
+        location = input.value;
+        getWeather();
+    }    
 }
 
 
-input.addEventListener("keypress", (event) => {
-    if (event.key === "Enter") {
-        search.click();
-    }
-})
 
-search.onclick = () => {
-    container.classList.remove("hidden");
-    errorMessage.remove();
-    location = input.value;
-    getWeather();
-}
+
+
 
 
