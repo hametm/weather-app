@@ -1,7 +1,9 @@
 import './style.css';
 var countries = require("i18n-iso-countries");
 countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
-import {decode} from 'html-entities';
+import { decode } from 'html-entities';
+import searchImage from "./images/search-button.png";
+import sunImage from "./images/sun.png";
 
 
 const input = document.querySelector("input");
@@ -19,10 +21,15 @@ const errorMessage = document.createElement("h1");
 const convertToF = document.getElementById("fahrenheit");
 const convertToC = document.getElementById("celsius");
 const degreeSymbol = decode("&deg;");
+const searchBtn = document.getElementById("searchBtn");
+const sun = document.getElementById("sun");
 
 let location = "tokyo";
 
 getWeather();
+
+searchBtn.src = searchImage;
+sun.src = sunImage;
 
 
 async function getWeather() {
@@ -32,7 +39,6 @@ async function getWeather() {
     
         name.textContent = data.name + convertCountryName(data.sys.country);
         temp.textContent = convertToFahrenheit(data.main.temp) + degreeSymbol;
-        // feelsLike.textContent = `Feels like ${convertToFahrenheit(data.main.feels_like)}${degreeSymbol}`; 
         main.textContent = data.weather[0].main;
         wind.textContent = `Wind: ${Math.round(data.wind.speed) + " mph"}`;
         high.textContent = `High: ${convertToFahrenheit(data.main.temp_max)}${degreeSymbol}`;
