@@ -65,10 +65,8 @@ function addEventListeners(currentTemp, currentHigh, currentLow) {
     }
 
     input.addEventListener("keypress", (event) => {
-        if (event.key === "Enter") {
-            search.click();
-        }
-    })
+        if (event.key === "Enter") search.click();
+    });
 
     search.onclick = () => {
         container.classList.remove("hidden");
